@@ -332,9 +332,9 @@ class Decoder(srd.Decoder):
         samples_per_tick = int(self.samplerate / MVB_CLOCK_RATE)
         self.mvb_samples_per_bit = 2 * samples_per_tick
         # print(f"Sample rate:{self.samplerate} {self.mvb_samples_per_bit}")
-        self.wait({0: 'f'})
+        pins = self.wait()
         notch_begin = self.samplenum
-        phase = False
+        phase = bool(pins[0])
         while True:
             self.wait({0: 'e'})
             notch_length = self.samplenum - notch_begin
